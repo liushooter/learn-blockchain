@@ -19,6 +19,7 @@ EosContract.events.Transfer({fromBlock:1, toBlock: "latest"}, function(err, data
 
 // geth --datadir /mnt/eth --rpc --ws --wsaddr localhost --wsorigins "*" --wsapi "eth,web3,net,txpool,shh,subpub"
 
+// https://github.com/INFURA/infura/issues/73
 
 // {
 //   address: '0x86Fa049857E0209aa7D9e616F7eb3b3B78ECfdb0',
