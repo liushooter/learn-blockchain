@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
-	"github.com/shooterman/learn-btc/model/golang/gorm/model"
+	"github.com/shooterman/learn-btc/golang/gorm/model"
 )
 
 const (
