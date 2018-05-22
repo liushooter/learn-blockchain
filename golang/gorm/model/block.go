@@ -5,9 +5,8 @@ import (
 	// "github.com/jinzhu/gorm"
 )
 
-type dbBlock struct {
+type DBBlock struct {
 	// gorm.Model
-
 	ID         int       `json:"id"`
 	Height     int       `json:"height"`
 	Timestamp  int       `json:"timestamp"`
@@ -27,6 +26,6 @@ type dbBlock struct {
 	UpdatedAt  time.Time `json:"updated_at"`
 }
 
-func (dbBlock) TableName() string {
+func (dbb DBBlock) TableName() string {
 	return "blocks" // 数据库名
 }

@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
+	"time"
+
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
-	"log"
-	"model"
-	"net/http"
-	"time"
+	"github.com/shooterman/learn-btc/model/golang/gorm/model"
 )
 
 const (
@@ -51,7 +52,7 @@ func main() {
 func createBlock() {
 	now := time.Now()
 
-	dbBlock := model.dbBlock{
+	dbBlock := model.DBBlock{
 		ID:         1,
 		Height:     11,
 		Timestamp:  int(now.Unix()),
