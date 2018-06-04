@@ -1,0 +1,24 @@
+{
+  "name": "eth_balance",
+  "version": "0.0.1",
+  "description": "get eth account balance",
+  "main": "server.js",
+  "dependencies": {
+    "ethereumjs-account": "^2.0.5",
+    "ethereumjs-util": "^5.2.0",
+    "leveldown": "^4.0.1",
+    "levelup": "^3.0.1",
+    "merkle-patricia-tree": "^2.3.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "eth",
+    "leveldb",
+    "account",
+    "balance"
+  ],
+  "author": "shooter",
+  "license": "MIT"
+}
