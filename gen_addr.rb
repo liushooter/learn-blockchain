@@ -2,6 +2,7 @@ require 'digest'
 
 _pri_key = "ccea9c5a20e2b78c2e0fbdd8ae2d2b67e6b1894ccb7a55fc1de08bd53994ea64"
 _pub_key = "04d061e9c5891f579fd548cfd22ff29f5c642714cc7e7a9215f0071ef5a5723f691757b28e31be71f09f24673eed52348e58d53bcfd26f4d96ec6bf1489eab429d"
+_compressed_pub_key = "03d061e9c5891f579fd548cfd22ff29f5c642714cc7e7a9215f0071ef5a5723f69" #压缩公钥
 
 _P2PKH = "00"
 _P2SH = "05"
@@ -42,3 +43,10 @@ end
 puts gen_addr(_P2PKH, _pub_key)
 puts gen_addr(_P2SH, _pub_key)
 puts gen_addr(_Testnet, _pub_key)
+puts
+
+puts "#############压缩公钥#############"
+puts "现在一般都使用压缩公钥, 压缩/未压缩公钥生成的地址确实会不一样, 非压缩公钥早已成了非主流"
+puts gen_addr(_P2PKH, _compressed_pub_key)
+puts gen_addr(_P2SH, _compressed_pub_key)
+puts gen_addr(_Testnet, _compressed_pub_key)
