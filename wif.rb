@@ -2,8 +2,8 @@ require 'digest'
 
 _pri_key = "ccea9c5a20e2b78c2e0fbdd8ae2d2b67e6b1894ccb7a55fc1de08bd53994ea64"
 
-mainnet = '80'
-testnet = 'ef'
+_wif_mainnet = '80'
+_wif_testnet = 'ef'
 
 def _hash160(pub_key)
   bytes = [pub_key].pack("H*")
@@ -41,22 +41,21 @@ def _base58_to_int(base58_val)
   end
 
 
-  def _int_to_hex int
-    hex = int.to_s(16)
-    (hex.length % 2 == 0) ? hex : ('0'+hex)
-  end
+def _int_to_hex int
+  hex = int.to_s(16)
+  (hex.length % 2 == 0) ? hex : ('0'+hex)
+end
 
-  def _decode_base58(base58_val)
-    alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+def _decode_base58(base58_val)
+  alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
-    nzeroes = base58_val.chars.find_index{|c| c != alphabet[0]} || base58_val.length-1
-    prefix = nzeroes < 0 ? '' : '00' * nzeroes
+  nzeroes = base58_val.chars.find_index{|c| c != alphabet[0]} || base58_val.length-1
+  prefix = nzeroes < 0 ? '' : '00' * nzeroes
 
-    nzeroes = base58_val.chars.find_index{|c| c != alphabet} || base58_val.length-1
-    prefix = nzeroes < 0 ? '' : '00' * nzeroes
-    prefix + _int_to_hex(_base58_to_int(base58_val))
-  end
-
+  nzeroes = base58_val.chars.find_index{|c| c != alphabet} || base58_val.length-1
+  prefix = nzeroes < 0 ? '' : '00' * nzeroes
+  prefix + _int_to_hex(_base58_to_int(base58_val))
+end
 
 def pri_key_to_wif(prefix, pri, compress=true)
   flag = compress ? "01" : ""
@@ -90,13 +89,13 @@ puts "压缩私钥的WIF格式是52位长度, 已K或L开头"
 
 puts
 
-res = pri_key_to_wif(mainnet, _pri_key)
+res = pri_key_to_wif(_wif_mainnet, _pri_key)
 puts res
 puts wif_to_pri_key(res)
 
 puts
 
-puts wif_to_pri_key( pri_key_to_wif(mainnet, _pri_key, false))
+puts wif_to_pri_key(pri_key_to_wif(_wif_mainnet, _pri_key, false))
 
 # http://learnmeabitcoin.com/glossary/wif
 # https://github.com/dougal/base58/blob/master/lib/base58.rb
