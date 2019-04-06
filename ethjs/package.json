@@ -1,0 +1,20 @@
+{
+  "name": "eth",
+  "version": "0.0.1",
+  "description": "eth",
+  "main": "server.js",
+  "dependencies": {
+    "ethereumjs-account": "^2.0.5",
+    "ethereumjs-util": "^5.2.0",
+    "leveldown": "^4.0.1",
+    "levelup": "^3.0.1",
+    "merkle-patricia-tree": "^2.3.1",
+    "rlp": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "shooter",
+  "license": "ISC"
+}
