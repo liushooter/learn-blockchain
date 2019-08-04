@@ -68,15 +68,15 @@ def pri_key_to_wif(prefix, pri, compress=true)
 end
 
 
-def wif_to_pri_key(wif_addr)
+def wif_to_pri_key(_wif)
   pri_key = ""
-  _val = _decode_base58(wif_addr)
+  _val = _decode_base58(_wif)
 
-  if wif_addr.size == 52
+  if _wif.size == 52
       pri_key = _val[2..-11]
   end
 
- if wif_addr.size == 51
+ if _wif.size == 51
       pri_key = _val[2..-9]
   end
 
@@ -90,12 +90,10 @@ puts "压缩私钥的WIF格式是52位长度, 已K或L开头"
 puts
 
 res = pri_key_to_wif(_wif_mainnet, _pri_key)
-puts res
-puts wif_to_pri_key(res)
+puts "wif: " + res
+puts "私钥: " + wif_to_pri_key(res)
 
-puts
-
-puts wif_to_pri_key(pri_key_to_wif(_wif_mainnet, _pri_key, false))
+puts "私钥: " + wif_to_pri_key(pri_key_to_wif(_wif_mainnet, _pri_key, false))
 
 # http://learnmeabitcoin.com/glossary/wif
 # https://github.com/dougal/base58/blob/master/lib/base58.rb

@@ -16,9 +16,6 @@ h = 1 # Subgroup cofactor, 子群辅因子为1, 就不参与运算了
 
 # Pcurve, N, GPoint, secp256k1的函数式, 都是严格规定的, 严禁修改!!!
 
-#私钥
-privKey = 0xccea9c5a20e2b78c2e0fbdd8ae2d2b67e6b1894ccb7a55fc1de08bd53994ea64 # 取值小于群的阶,即 {0,N}
-
 def inverse_mod(a, n=Pcurve) #Extended Euclidean Algorithm/'division' in elliptic curves
     # 扩展欧几里得算法, https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
     lm, hm = 1,0
@@ -70,6 +67,8 @@ def EccMultiply(genPoint, scalarHex) # Double & Add. Not true multiplication
     return q
 end
 
+#私钥
+privKey = 0xccea9c5a20e2b78c2e0fbdd8ae2d2b67e6b1894ccb7a55fc1de08bd53994ea64 # 取值小于群的阶,即 {0,N}
 
 PublicKey = EccMultiply(GPoint, privKey)
 _pub_key = "04" + PublicKey[0].to_s(16).rjust(64, "0") + PublicKey[1].to_s(16).rjust(64, "0")
@@ -156,18 +155,18 @@ _wif_testnet = 'ef'
 _pri_key = privKey.to_s(16)
 
 def _base58_to_int(base58_val)
-    alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+  alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
-    size = alphabet.size
+  size = alphabet.size
 
-    int_val = 0
-    base58_val.reverse.split(//).each_with_index do |char,index|
-      char_index = alphabet.index(char)
-      int_val += (char_index)*(size**(index))
-    end
-    int_val
+  int_val = 0
+  base58_val.reverse.split(//).each_with_index do |char,index|
+    char_index = alphabet.index(char)
+    int_val += (char_index)*(size**(index))
   end
 
+  int_val
+end
 
 def _int_to_hex val
   hex = val.to_s(16)
@@ -197,15 +196,15 @@ def pri_key_to_wif(prefix, pri, compress=true)
 end
 
 
-def wif_to_pri_key(wif_addr)
+def wif_to_pri_key(_wif)
   pri_key = ""
-  _val = _decode_base58(wif_addr)
+  _val = _decode_base58(_wif)
 
-  if wif_addr.size == 52
+  if _wif.size == 52
       pri_key = _val[2..-11]
   end
 
- if wif_addr.size == 51
+ if _wif.size == 51
       pri_key = _val[2..-9]
   end
 
