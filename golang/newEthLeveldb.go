@@ -6,11 +6,6 @@ import (
 	"github.com/ethereum/go-ethereum/core/rawdb"
 )
 
-var (
-	num    = 46147
-	dbPath = "/mnt/eth/geth/chaindata"
-)
-
 // type Header struct {
 // 	ParentHash  common.Hash    `json:"parentHash"       gencodec:"required"`
 // 	UncleHash   common.Hash    `json:"sha3Uncles"       gencodec:"required"`
@@ -33,7 +28,6 @@ var (
 // 	Transactions []*Transaction
 // 	Uncles       []*Header
 // }
-
 
 // type Transaction struct {
 // 	data txdata
@@ -60,8 +54,16 @@ var (
 // 	Hash *common.Hash `json:"hash" rlp:"-"`
 // }
 
+var (
+	// num    = 46147
+	upNum       = 1
+	endNum      = 3
+	dbPath      = "/mnt/eth/geth/chaindata"
+	ancientPath = dbPath + "/ancient" // 必须是绝对路径
+)
+
 func main() {
-	ancientDb, err := rawdb.NewLevelDBDatabaseWithFreezer(dbPath, 16, 1, "ancient", "")
+	ancientDb, err := rawdb.NewLevelDBDatabaseWithFreezer(dbPath, 16, 1, ancientPath, "")
 	if err != nil {
 		panic(err)
 	}
@@ -76,7 +78,7 @@ func main() {
 
 	fmt.Println("----------------------------------------------------------------")
 
-	for i := num; i <= num; i++ {
+	for i := upNum; i <= endNum; i++ {
 		// ReadCanonicalHash retrieves the hash assigned to a canonical block number.
 		blkHash := rawdb.ReadCanonicalHash(ancientDb, uint64(i))
 
