@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/rawdb"
+	"github.com/ethereum/go-ethereum/core/types"
 )
 
 // type Header struct {
@@ -55,9 +56,11 @@ import (
 // }
 
 var (
-	// num    = 46147
-	upNum       = 1
-	endNum      = 3
+	putf = fmt.Printf
+	puts = fmt.Println
+
+	upNum       = 46147
+	endNum      = 46147
 	dbPath      = "/mnt/eth/geth/chaindata"
 	ancientPath = dbPath + "/ancient" // 必须是绝对路径
 )
@@ -76,7 +79,7 @@ func main() {
 	currHiehgt := rawdb.ReadHeaderNumber(ancientDb, currHeader)
 	fmt.Printf("currHiehgt: %d\n", currHiehgt)
 
-	fmt.Println("----------------------------------------------------------------")
+	puts("----------------------------------------------------------------")
 
 	for i := upNum; i <= endNum; i++ {
 		// ReadCanonicalHash retrieves the hash assigned to a canonical block number.
@@ -107,15 +110,27 @@ func main() {
 
 		fmt.Printf("blkBody Tx size: %x\n", len(blkBody.Transactions))
 		for _, tx := range blkBody.Transactions {
-			fmt.Printf("tx Hash: 0x%x\n", tx.Hash())
-			fmt.Printf("tx To: 0x%x\n", tx.To())
+			putf("tx Hash: 0x%x\n", tx.Hash())
+			putf("tx from addr: 0x%x\n", getFromAddr(tx))
+			putf("tx To: 0x%x\n", tx.To())
 		}
 
 		// ReadBlock retrieves an entire block corresponding to the hash
 		block := rawdb.ReadBlock(ancientDb, blkHash, uint64(i))
 		fmt.Printf("block hash: 0x%x\n", block.Hash())
 
-		fmt.Println("----------------------------------------------------------------")
+		puts("----------------------------------------------------------------")
 	}
 
+}
+
+func getFromAddr(tx *types.Transaction) common.Address {
+	var signer types.Signer = types.FrontierSigner{} // 这是 Frontier阶段的签名
+
+	from, err := types.Sender(signer, tx)
+	if err != nil {
+		panic(err)
+	}
+
+	return from
 }
