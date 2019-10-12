@@ -74,4 +74,4 @@ func main() {
 
 }
 
-// https://github.com/ethereum/go-ethereum/blob/master/core/database_util.go#L184
+// https://github.com/ethereum/go-ethereum/blob/v1.8.7/core/database_util.go#L53-L60
