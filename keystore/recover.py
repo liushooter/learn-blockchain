@@ -4,11 +4,11 @@ from Crypto.Cipher import AES
 from Crypto.Util import Counter
 
 password = "123456"
-dec_key = hashlib.scrypt(bytes(password, 'utf-8'), salt = bytes.fromhex('12e26f432ce1a50c9ef7d45cd818a4c070740dffd4e63df577a34c27dda9ef76'), n = 262144, r = 8, p = 1, maxmem = 2000000000, dklen = 32)
+dec_key = hashlib.scrypt(bytes(password, 'utf-8'), salt = bytes.fromhex('24342a0a31512e75b2e11a1a5dc2706f76b7efaf96dfe2bde5dfcedadbf40a5e'), n = 262144, r = 8, p = 1, maxmem = 2000000000, dklen = 32)
 
 print(dec_key.hex())
 
-validate = dec_key[16:] + bytes.fromhex('e5c00fc33f7b0b33e7a40d055d162b10cbd3ff29bb8a225d14a151a51675d8ad')# ciphertext
+validate = dec_key[16:] + bytes.fromhex('07eaa07fc9fb681b2cf836331d0c59e43a971dc65676f7dcf021e83c68374b171e2752a1f56b80606136c35126c17bca465d68479477f18900a3e154b08d48560b25')# ciphertext
 
 keccak_hash = keccak.new(digest_bits = 256)
 keccak_hash.update(validate)
@@ -18,29 +18,29 @@ iv_int = int('12e867c52f39fd32403f38da840f7437', 16)
 ctr = Counter.new(AES.block_size * 8, initial_value = iv_int)
 dec_suite = AES.new(dec_key[0:16], AES.MODE_CTR, counter = ctr)
 
-plain_key = dec_suite.decrypt(bytes.fromhex('e5c00fc33f7b0b33e7a40d055d162b10cbd3ff29bb8a225d14a151a51675d8ad'))# ciphertext
+plain_key = dec_suite.decrypt(bytes.fromhex('07eaa07fc9fb681b2cf836331d0c59e43a971dc65676f7dcf021e83c68374b171e2752a1f56b80606136c35126c17bca465d68479477f18900a3e154b08d48560b25'))# ciphertext
 print("privKey", plain_key.hex())
+# e72462df465df759764cdef152a48fc42aff6451ad552af589e619546838545d
 
 '''
 {
-    "address":"ce7a516a9948a948808b51864c172d53c8401bf8",
     "crypto":{
-        "cipher":"aes-128-ctr",
-        "ciphertext":"e5c00fc33f7b0b33e7a40d055d162b10cbd3ff29bb8a225d14a151a51675d8ad",
+        "ciphertext":"07eaa07fc9fb681b2cf836331d0c59e43a971dc65676f7dcf021e83c68374b171e2752a1f56b80606136c35126c17bca465d68479477f18900a3e154b08d48560b25",
         "cipherparams":{
-            "iv":"12e867c52f39fd32403f38da840f7437"
+            "iv":"5c5a77e47d835fee47bbc9226217b4a9"
         },
+        "cipher":"aes-128-ctr",
         "kdf":"scrypt",
         "kdfparams":{
             "dklen":32,
             "n":262144,
             "p":1,
             "r":8,
-            "salt":"12e26f432ce1a50c9ef7d45cd818a4c070740dffd4e63df577a34c27dda9ef76"
+            "salt":"24342a0a31512e75b2e11a1a5dc2706f76b7efaf96dfe2bde5dfcedadbf40a5e"
         },
-        "mac":"7d4cb77f755b03e10b8782c1893d6c21245d826e20c70a94a258995632706a25"
+        "mac":"ece6fe402ad14a5ac1b5e40895ce4217f01cf8b2df8507bc5390cbf75ce46da2"
     },
-    "id":"f6333c44-f69e-4636-85c0-8a8d725d9b24",
+    "id":"7fc8554d-7fb5-4e3e-b526-ea352bd7a233",
     "version":3
 }
 
